@@ -1,0 +1,40 @@
+.border-left-dashed {
+	border-right-style: dashed !important;
+	border-left-style: none !important;
+}
+
+.border-right-dashed {
+	border-left-style: dashed !important;
+	border-right-style: none !important;
+}
+
+.flib-rtl {
+	transform: scaleX(-1);
+}
+
+mat-checkbox {
+	&.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, 
+	&.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+		background: $blueGradient !important;
+	}
+	
+	.mat-checkbox-background, .mat-checkbox-frame {
+		border-radius: 5px;
+	}
+}
+
+.mat-select-panel .mat-option.mat-active {
+	color: $blue !important;
+}
+
+mat-pseudo-checkbox.mat-pseudo-checkbox {
+	border-radius: 5px;
+}
+
+.ls-rtl-1 {
+	letter-spacing: 1px;
+}
+
+.ls-rtl-2 {
+	letter-spacing: 2px;
+}
