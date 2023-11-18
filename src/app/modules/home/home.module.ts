@@ -6,6 +6,8 @@ import { CoreModule } from '../../core/core.module';
 import { HighlightBannerComponent } from './components/highlight-banner/highlight-banner.component';
 import { ThingsWeDoComponent } from './components/things-we-do/things-we-do.component';
 import { LatestNewsComponent } from './components/latest-news/latest-news.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BannerService } from '../../services/banner.service';
 
 const routes: Routes = [
   {
@@ -25,6 +27,10 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     CoreModule,
+    HttpClientModule,
+  ],
+  providers: [
+    BannerService,
   ]
 })
 export class HomeModule { }

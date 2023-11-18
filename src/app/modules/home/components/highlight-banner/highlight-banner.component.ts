@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { BannerService } from '../../../../services/banner.service';
+import { Slide } from '../../../../constants/home.interface';
 
 @Component({
   selector: 'app-highlight-banner',
@@ -7,5 +9,15 @@ import { Component } from '@angular/core';
   styleUrl: './highlight-banner.component.scss'
 })
 export class HighlightBannerComponent {
+  slides: Slide[] = [];
 
+  constructor(private bannerService: BannerService) {
+    this.getBanners();
+  }
+
+  getBanners() {
+    this.bannerService.getBanners().subscribe((response: any) => {
+      this.slides = response.slides;
+    })
+  }
 }
