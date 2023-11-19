@@ -10,6 +10,14 @@
   width: 560px;
 }
 
+.hover-read-more > div:hover {
+  z-index: 1;
+  background: linear-gradient(45deg, #13276b 0%, #13276b00 100%);
+  aspect-ratio: 232/232;
+  opacity: 1 !important;
+  transform: 0.3s all;
+}
+
 .position-1 {
   top: -8.5rem;
   left: -0.75rem;
