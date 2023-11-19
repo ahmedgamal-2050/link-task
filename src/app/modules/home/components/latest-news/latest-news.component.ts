@@ -50,7 +50,6 @@ export class LatestNewsComponent {
 
   filterNewsByCategory(categoryId: number) {
     this.activeCategory = categoryId;
-    this.filteredNews = this.news.filter((item: News) => +item.categoryID === categoryId);
-    console.log("🚀 ~ file: latest-news.component.ts:52 ~ LatestNewsComponent ~ filterNewsByCategory ~ this.filteredNews:", this.filteredNews)
+    this.filteredNews = categoryId !== -1 ? this.news.filter((item: News) => +item.categoryID === categoryId) : [];
   }
 }
