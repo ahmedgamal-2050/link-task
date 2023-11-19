@@ -8,6 +8,7 @@ import { ThingsWeDoComponent } from './components/things-we-do/things-we-do.comp
 import { LatestNewsComponent } from './components/latest-news/latest-news.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BannerService } from '../../services/banner.service';
+import { NewsService } from '../../services/news.service';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
   ],
   providers: [
     BannerService,
+    NewsService,
   ]
 })
 export class HomeModule { }

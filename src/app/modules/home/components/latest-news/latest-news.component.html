@@ -1,44 +1,60 @@
-<div class="container text-center py-5">
+<div class="container text-center py-5" *ngIf="news && news.length > 0">
   <p class="fs18 text-dark-electric-blue fw600">Media</p>
   <h4 class="text-navy fw-bold fs50 mb-4">Top News</h4>
-  <ul id="pills-tab" role="tablist" class="nav nav-pills justify-content-center mb-5">
-    <li role="presentation" class="nav-item mx-3">
-      <button data-bs-toggle="pill" data-bs-target="#pills-1" type="button" role="tab" aria-controls="pills-1"
-        aria-selected="true" class="nav-link bg-cyan text-white"> All news </button>
+  <ul id="pills-tab" role="tablist" class="nav nav-pills justify-content-center mb-4" *ngIf="newsCategories && newsCategories.length > 0">
+    <li role="presentation" class="nav-item mx-3 mb-4">
+      <button 
+        data-bs-toggle="pill" 
+        data-bs-target="#pills-all" 
+        type="button" 
+        role="tab" 
+        aria-controls="pills-all"
+        [attr.aria-selected]="activeCategory === -1" 
+        [ngClass]="{
+          'bg-cyan text-white': activeCategory === -1,
+          'bg-platinum text-dark-cerulean': activeCategory !== -1,
+        }"
+        class="nav-link">
+        All news
+      </button>
     </li>
-    <li role="presentation" class="nav-item mx-3">
-      <button data-bs-toggle="pill" data-bs-target="#pills-2" type="button" role="tab" aria-controls="pills-2"
-        aria-selected="false" class="nav-link bg-platinum text-dark-cerulean"> Technology </button>
-    </li>
-    <li role="presentation" class="nav-item mx-3">
-      <button data-bs-toggle="pill" data-bs-target="#pills-3" type="button" role="tab" aria-controls="pills-3"
-        aria-selected="false" class="nav-link bg-platinum text-dark-cerulean"> Sport </button>
-    </li>
-    <li role="presentation" class="nav-item mx-3">
-      <button data-bs-toggle="pill" data-bs-target="#pills-4" type="button" role="tab" aria-controls="pills-4"
-        aria-selected="false" class="nav-link bg-platinum text-dark-cerulean"> Health </button>
-    </li>
-    <li role="presentation" class="nav-item mx-3">
-      <button data-bs-toggle="pill" data-bs-target="#pills-5" type="button" role="tab" aria-controls="pills-5"
-        aria-selected="false" class="nav-link bg-platinum text-dark-cerulean"> Economics </button>
-    </li>
+    <ng-container *ngFor="let category of newsCategories">
+      <li role="presentation" class="nav-item mx-3 mb-4">
+        <button 
+          data-bs-toggle="pill" 
+          [attr.data-bs-target]="'#pills-' + category.id" 
+          type="button" 
+          role="tab" 
+          [attr.aria-controls]="'pills-' + category.id"
+          [attr.aria-selected]="activeCategory === category.id" 
+          [ngClass]="{
+            'bg-cyan text-white': activeCategory === category.id,
+            'bg-platinum text-dark-cerulean': activeCategory !== category.id,
+          }"
+          (click)="filterNewsByCategory(+category.id)"
+          class="nav-link"> 
+          {{ category.name }} 
+        </button>
+      </li>
+    </ng-container>
   </ul>
   <div id="pills-tabContent" class="tab-content">
-    <div id="pills-1" role="tabpanel" class="tab-pane fade show active">
-      <div class="row" *ngIf="lastestNewsList">
-        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let news of lastestNewsList">
+    <div id="pills-all" role="tabpanel" class="tab-pane fade"
+      [ngClass]="{'show active': activeCategory === -1}">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of lastestNews">
           <div class="card border-0 rounded-5 shadow">
             <img 
               loading="lazy"
               width="360" 
               height="322" 
-              class="card-img-top object-fit-cover object-position-top" 
-              alt="news image 0"
-              [src]="news.imageLg"
+              class="card-img-top object-fit-cover object-position-top rounded-5 rounded-bottom-0" 
+              [alt]="'news image ' + item.id"
+              [src]="item.urlToImage"
             />
             <div class="card-body">
               <p class="card-text static-height80 fs18 fw600 text-dark-electric-blue text-start"> 
-                {{ news.shortDescription }}
+                {{ item.title }}
               </p>
               <div class="d-flex align-items-center mb-3">
                 <img 
@@ -50,13 +66,13 @@
                   class="d-inline-block object-fit-contain"
                 />
                 <span class="text-dark-silver ms-2">
-                  {{ news.publishDate | date :'EEE dd MMM yyyy'}} 
+                  {{ item.publishedDate| date :'EEE dd MMM yyyy'}} 
                 </span>
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <span
                   class="bg-platinum text-dark-cerulean px-3 rounded-pill d-inline-block">
-                  {{ news.category }}  
+                  {{ getCategoryId(+item.categoryID) }}  
                 </span>
                 <div>
                   <img 
@@ -80,10 +96,65 @@
         </div>
       </div>
     </div>
-    <div id="pills-2" role="tabpanel" class="tab-pane fade">...</div>
-    <div id="pills-3" role="tabpanel" class="tab-pane fade">...</div>
-    <div id="pills-4" role="tabpanel" class="tab-pane fade">...</div>
-    <div id="pills-5" role="tabpanel" class="tab-pane fade">...</div>
+    <ng-container *ngFor="let category of newsCategories">
+      <div [id]="'pills-' + category.id" role="tabpanel" class="tab-pane fade"
+        [ngClass]="{'show active': activeCategory === category.id}">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of filteredNews">
+            <div class="card border-0 rounded-5 shadow">
+              <img 
+                loading="lazy"
+                width="360" 
+                height="322" 
+                class="card-img-top object-fit-cover object-position-top rounded-5 rounded-bottom-0" 
+                [alt]="'news image ' + item.id"
+                [src]="item.urlToImage"
+              />
+              <div class="card-body">
+                <p class="card-text static-height80 fs18 fw600 text-dark-electric-blue text-start"> 
+                  {{ item.title }}
+                </p>
+                <div class="d-flex align-items-center mb-3">
+                  <img 
+                    src="/assets/icons/ic_date_range_24px.svg" 
+                    loading="lazy" 
+                    alt="calendar icon" 
+                    width="" 
+                    height=""
+                    class="d-inline-block object-fit-contain"
+                  />
+                  <span class="text-dark-silver ms-2">
+                    {{ item.publishedDate| date :'EEE dd MMM yyyy'}} 
+                  </span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span
+                    class="bg-platinum text-dark-cerulean px-3 rounded-pill d-inline-block">
+                    {{ getCategoryId(+item.categoryID) }}  
+                  </span>
+                  <div>
+                    <img 
+                      src="/assets/icons/ic_favorite_border_24px.svg"
+                      loading="lazy" 
+                      alt="love icon" 
+                      width="" 
+                      height=""
+                      class="d-inline-block object-fit-contain me-2">
+                    <img 
+                      src="/assets/icons/ic_share_24px.svg" 
+                      loading="lazy" 
+                      alt="share icon" 
+                      width="" 
+                      height=""
+                      class="d-inline-block object-fit-contain">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
   <div>
     <button class="btn bg-orange text-white py-3 px-5"> 

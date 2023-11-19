@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { News } from '../../../../constants/home.interface';
+import { News, NewsCategory } from '../../../../constants/home.interface';
+import { NewsService } from '../../../../services/news.service';
 
 @Component({
   selector: 'app-latest-news',
@@ -8,48 +9,48 @@ import { News } from '../../../../constants/home.interface';
   styleUrl: './latest-news.component.scss'
 })
 export class LatestNewsComponent {
-  lastestNewsList: News[] = [
-    {
-      shortDescription: "Let us commit to do our part and advance the promise of equality, justice...",
-      longDescription: "Let us commit to do our part and advance the promise of equality, justice...",
-      imageLg: "assets/images/home/top-news/news1-lg.png",
-      publishDate: "08/12/2022",
-      category: "Economics"
-    },
-    {
-      shortDescription: "In interactive live seminar top lectures of the IHF present current topics for all target groups ...",
-      longDescription: "In interactive live seminar top lectures of the IHF present current topics for all target groups ...",
-      imageLg: "assets/images/home/top-news/news2-lg.png",
-      publishDate: "08/12/2022",
-      category: "Sport"
-    },
-    {
-      shortDescription: "Libya to construct solar plant with Total Energies",
-      longDescription: "Libya to construct solar plant with Total Energies",
-      imageLg: "assets/images/home/top-news/news3-lg.png",
-      publishDate: "08/12/2022",
-      category: "Technology"
-    },
-    {
-      shortDescription: "The 2nd IHF Wheelchair Handball Seminar begins this Saturday.",
-      longDescription: "The 2nd IHF Wheelchair Handball Seminar begins this Saturday.",
-      imageLg: "assets/images/home/top-news/news4-lg.png",
-      publishDate: "08/12/2022",
-      category: "Sport"
-    },
-    {
-      shortDescription: "President El Sisi Unveils “Egypt Vision 2030” Sustainabl…",
-      longDescription: "President El Sisi Unveils “Egypt Vision 2030” Sustainabl…",
-      imageLg: "assets/images/home/top-news/news5-lg.png",
-      publishDate: "08/12/2022",
-      category: "Economics"
-    },
-    {
-      shortDescription: "COVID-19: get the latest updates The MoF is leading work across government response to COVID-19.",
-      longDescription: "COVID-19: get the latest updates The MoF is leading work across government response to COVID-19.",
-      imageLg: "assets/images/home/top-news/news6-lg.png",
-      publishDate: "08/12/2022",
-      category: "Health"
-    },
-  ]
+  news: News[] = [];
+  lastestNews: News[] = [];
+  newsCategories: NewsCategory[] = [];
+  filteredNews: News[] = [];
+  activeCategory: number = -1;
+
+  constructor(private newsService: NewsService) {
+    this.getNews();
+    this.getNewsCategories();
+  }
+
+  getNews() {
+    this.newsService.getNews().subscribe((response: any) => {
+      this.news = response.News;
+      this.lastestNews = this.news.filter((item: News) => item.showOnHomepage === "yes");
+    })
+  }
+
+  getNewsCategories() {
+    this.newsService.getNewsCategories().subscribe((response: any) => {
+      this.newsCategories = response.newsCategory;
+    })
+  }
+
+  getCategoryId(categoryId: number): string {
+    if (this.newsCategories && this.newsCategories.length > 0) {
+      const category: NewsCategory | undefined = this.newsCategories.find((item: NewsCategory) => item.id === categoryId);
+      if (category) {
+        return category.name;
+      }
+      else {
+        return "";
+      }
+    }
+    else {
+      return "";
+    }
+  }
+
+  filterNewsByCategory(categoryId: number) {
+    this.activeCategory = categoryId;
+    this.filteredNews = this.news.filter((item: News) => +item.categoryID === categoryId);
+    console.log("🚀 ~ file: latest-news.component.ts:52 ~ LatestNewsComponent ~ filterNewsByCategory ~ this.filteredNews:", this.filteredNews)
+  }
 }

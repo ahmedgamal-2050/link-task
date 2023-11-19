@@ -16,9 +16,17 @@ export interface Slide {
 }
 
 export interface News {
-  imageLg: string;
-  shortDescription: string;
-  longDescription: string;
-  publishDate: Date | string;
-  category: string;
+  categoryID: string;
+  content: string;
+  description: string;
+  id: string;
+  publishedDate: Date | string;
+  showOnHomepage: string;
+  title: string;
+  urlToImage: string;
+}
+
+export interface NewsCategory {
+  id: number;
+  name: string;
 }

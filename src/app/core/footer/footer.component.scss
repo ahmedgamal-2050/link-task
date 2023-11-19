@@ -3,3 +3,8 @@
   height: 41px;
   aspect-ratio: 41/41;
 }
+
+.nav-link.text-dark-electric-blue:hover {
+  color: var(--navy) !important;
+  transition: 0.5s all;
+}
