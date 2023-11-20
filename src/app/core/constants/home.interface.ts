@@ -30,3 +30,11 @@ export interface NewsCategory {
   id: number;
   name: string;
 }
+
+export interface Service {
+  position: number;
+  urlToImage: string;
+  id: number;
+  link: string;
+  title: string;
+}

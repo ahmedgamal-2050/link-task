@@ -1,0 +1,32 @@
+.hover-read-more > div:hover {
+  z-index: 1;
+  background: linear-gradient(45deg, #13276b 0%, #13276b00 100%);
+  aspect-ratio: 232/232;
+  opacity: 1 !important;
+  transform: 0.3s all;
+}
+
+.position-1 {
+  top: -8.5rem;
+  left: -0.75rem;
+}
+
+.position-2 {
+  top: 5.8rem;
+  left: -0.75rem;
+}
+
+.position-3 {
+  top: -0.5rem;
+  right: 0.75rem;
+}
+
+.position-4 {
+  top: 13.85rem;
+  right: 0.75rem;
+}
+
+.position-5 {
+  top: 6.5rem;
+  right: 15.25rem;
+}
