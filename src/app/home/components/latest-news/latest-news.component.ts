@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { News, NewsCategory } from '../../../core/constants/home.interface';
-import { NewsService } from '../../../core/services/news.service';
 
 @Component({
   selector: 'app-latest-news',
@@ -8,48 +7,33 @@ import { NewsService } from '../../../core/services/news.service';
   templateUrl: './latest-news.component.html',
   styleUrl: './latest-news.component.scss'
 })
-export class LatestNewsComponent {
-  news: News[] = [];
-  lastestNews: News[] = [];
-  newsCategories: NewsCategory[] = [];
-  filteredNews: News[] = [];
-  activeCategory: number = -1;
+export class LatestNewsComponent implements OnChanges {
+  @Input() news: News[] = [];
+  @Input() lastestNews: News[] = [];
+  @Input() newsCategories: NewsCategory[] = [];
+  @Input() filteredNews: News[] = [];
+  @Input() activeCategory: number = -1;
+  @Output() filterNews = new EventEmitter<number>();
 
-  constructor(private newsService: NewsService) {
-    this.getNews();
-    this.getNewsCategories();
-  }
-
-  getNews() {
-    this.newsService.getNews().subscribe((response: any) => {
-      this.news = response.News;
-      this.lastestNews = this.news.filter((item: News) => item.showOnHomepage === "yes");
-    })
-  }
-
-  getNewsCategories() {
-    this.newsService.getNewsCategories().subscribe((response: any) => {
-      this.newsCategories = response.newsCategory;
-    })
-  }
-
-  getCategoryId(categoryId: number): string {
-    if (this.newsCategories && this.newsCategories.length > 0) {
-      const category: NewsCategory | undefined = this.newsCategories.find((item: NewsCategory) => item.id === categoryId);
-      if (category) {
-        return category.name;
-      }
-      else {
-        return "";
-      }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes && changes['news']) {
+      this.news = changes['news'].currentValue;
     }
-    else {
-      return "";
+    if (changes && changes['lastestNews']) {
+      this.lastestNews = changes['lastestNews'].currentValue;
+    }
+    if (changes && changes['newsCategories']) {
+      this.newsCategories = changes['newsCategories'].currentValue;
+    }
+    if (changes && changes['filteredNews']) {
+      this.filteredNews = changes['filteredNews'].currentValue;
+    }
+    if (changes && changes['activeCategory']) {
+      this.activeCategory = changes['activeCategory'].currentValue;
     }
   }
 
   filterNewsByCategory(categoryId: number) {
-    this.activeCategory = categoryId;
-    this.filteredNews = categoryId !== -1 ? this.news.filter((item: News) => +item.categoryID === categoryId) : [];
+    this.filterNews.emit(categoryId);
   }
 }

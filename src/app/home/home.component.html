@@ -1,5 +1,15 @@
 <app-header />
-<app-highlight-banner />
-<app-things-we-do />
-<app-latest-news />
+<app-highlight-banner 
+  [slides]="slides"
+/>
+<app-things-we-do 
+/>
+<app-latest-news 
+  [news]="news"
+  [lastestNews]="lastestNews"
+  [newsCategories]="newsCategories"
+  [filteredNews]="filteredNews"
+  [activeCategory]="activeCategory"
+  (filterNews)="filterNewsByCategory($event)"
+/>
 <app-footer />
