@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BannerService } from '../../../../services/banner.service';
-import { Slide } from '../../../../constants/home.interface';
+import { BannerService } from '../../../core/services/banner.service';
+import { Slide } from '../../../core/constants/home.interface';
 
 @Component({
   selector: 'app-highlight-banner',

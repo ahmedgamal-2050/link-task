@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { News, NewsCategory } from '../../../../constants/home.interface';
-import { NewsService } from '../../../../services/news.service';
+import { News, NewsCategory } from '../../../core/constants/home.interface';
+import { NewsService } from '../../../core/services/news.service';
 
 @Component({
   selector: 'app-latest-news',
