@@ -47,19 +47,4 @@ export class NewsService {
       }),
     );
   }
-
-  getCategoryNameById(categoryId: number, newsCategories: NewsCategory[]): string {
-    if (newsCategories && newsCategories.length > 0) {
-      const category: NewsCategory | undefined = newsCategories.find((item: NewsCategory) => item.id === categoryId);
-      if (category) {
-        return category.name;
-      }
-      else {
-        return "";
-      }
-    }
-    else {
-      return "";
-    }
-  }
 }

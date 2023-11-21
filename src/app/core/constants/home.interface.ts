@@ -17,6 +17,7 @@ export interface Slide {
 
 export interface News {
   categoryID: string;
+  categoryName?: string;
   content: string;
   description: string;
   id: string;

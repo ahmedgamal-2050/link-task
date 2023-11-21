@@ -19,8 +19,8 @@ export class HomeComponent {
 
   constructor(private bannerService: BannerService, private newsService: NewsService) {
     this.getBanners();
-    this.getNews();
     this.getNewsCategories();
+    this.getNews();
   }
 
   getBanners() {
@@ -29,17 +29,36 @@ export class HomeComponent {
     })
   }
 
-  getNews() {
-    this.newsService.getNews().subscribe((response: any) => {
-      this.news = response.News;
-      this.lastestNews = this.news.filter((item: News) => item.showOnHomepage === "yes");
-    })
-  }
-
   getNewsCategories() {
     this.newsService.getNewsCategories().subscribe((response: any) => {
       this.newsCategories = response.newsCategory;
     })
+  }
+
+  getNews() {
+    this.newsService.getNews().subscribe((response: any) => {
+      this.news = response.News;
+      this.news.map((item: News) => {
+        item.categoryName = this.getCategoryNameById(+item.categoryID);
+        return item;
+      }) 
+      this.lastestNews = this.news.filter((item: News) => item.showOnHomepage === "yes");
+    })
+  }
+
+  getCategoryNameById(categoryId: number): string {
+    if (this.newsCategories && this.newsCategories.length > 0) {
+      const category: NewsCategory | undefined = this.newsCategories.find((item: NewsCategory) => item.id === categoryId);
+      if (category) {
+        return category.name;
+      }
+      else {
+        return "";
+      }
+    }
+    else {
+      return "";
+    }
   }
 
   filterNewsByCategory(categoryId: number) {
