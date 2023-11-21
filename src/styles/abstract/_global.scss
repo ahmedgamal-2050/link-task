@@ -27,3 +27,9 @@ hr {
 .rounded-5 {
   border-radius: 3rem;
 }
+
+@media screen and (min-width: 992px) {
+  .position-lg-absolute {
+    position: absolute !important;
+  }
+}

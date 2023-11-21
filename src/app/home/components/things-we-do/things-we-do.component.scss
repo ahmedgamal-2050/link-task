@@ -1,0 +1,25 @@
+.thing-we-do-bg {
+  background-image: url('/assets/images/home/things-we-do-bg.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+@media screen and (min-width: 992px) {
+  .fixed-lg-thing-we-do-width {
+    width: 20rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .fixed-lg-thing-we-do-width {
+    width: 28rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .fixed-lg-thing-we-do-width {
+    width: 35rem;
+  }
+}

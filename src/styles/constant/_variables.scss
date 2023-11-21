@@ -9,4 +9,17 @@
   --dark-cerulean: #0F526E;
   --dark-silver: #707070;
   --platinum: #E3E3E3;
+  --base-font-size: 14px;
+}
+
+@media screen and (min-width: 576px) {
+  :root {
+    --base-font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  :root {
+    --base-font-size: 18px;
+  }
 }
