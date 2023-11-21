@@ -1,9 +1,9 @@
 <div class="container text-center py-5" *ngIf="news && news.length > 0">
-  <p class="fs18 text-dark-electric-blue fw600">Media</p>
-  <h4 class="text-navy fw-bold fs50 mb-4">Top News</h4>
+  <p class="fs-7 text-dark-electric-blue fw600">Media</p>
+  <h4 class="text-navy fw-bold fs-2 mb-4">Top News</h4>
   <ul id="pills-tab" role="tablist" class="nav nav-pills justify-content-center mb-4" 
     *ngIf="newsCategories && newsCategories.length > 0">
-    <li role="presentation" class="nav-item mx-3 mb-4">
+    <li role="presentation" class="nav-item mx-2 mx-sm-3 mb-3 mb-sm-4">
       <button 
         data-bs-toggle="pill" 
         data-bs-target="#pills-all" 
@@ -21,7 +21,7 @@
       </button>
     </li>
     <ng-container *ngFor="let category of newsCategories">
-      <li role="presentation" class="nav-item mx-3 mb-4">
+      <li role="presentation" class="nav-item mx-2 mx-sm-3 mb-3 mb-sm-4">
         <button 
           data-bs-toggle="pill" 
           [attr.data-bs-target]="'#pills-' + category.id" 
