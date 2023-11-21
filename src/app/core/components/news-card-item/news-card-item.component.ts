@@ -13,4 +13,8 @@ export class NewsCardItemComponent implements OnChanges {
       this.newsInfo = changes['newsInfo'].currentValue;
     }
   }
+
+  onImageError(event: any) {
+    event.src = 'https://placehold.jp/360x322.png';
+  }
 }
