@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Service } from '../../constants/home.interface';
 
 @Component({
@@ -6,12 +6,6 @@ import { Service } from '../../constants/home.interface';
   templateUrl: './service-card-item.component.html',
   styleUrl: './service-card-item.component.scss'
 })
-export class ServiceCardItemComponent implements OnChanges {
+export class ServiceCardItemComponent {
   @Input() service!: Service;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes['service']) {
-      this.service = changes['service'].currentValue;
-    }
-  }
 }

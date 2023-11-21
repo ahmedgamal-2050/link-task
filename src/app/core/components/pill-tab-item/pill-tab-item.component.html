@@ -1,0 +1,38 @@
+@if (newsCategory) {
+  <li role="presentation" class="nav-item mx-2 mx-sm-3 mb-3 mb-sm-4">
+    <button 
+      data-bs-toggle="pill" 
+      [attr.data-bs-target]="'#pills-' + newsCategory.id" 
+      type="button" 
+      role="tab" 
+      [attr.aria-controls]="'pills-' + newsCategory.id"
+      [attr.aria-selected]="activeCategory === newsCategory.id" 
+      [ngClass]="{
+        'bg-cyan text-white': activeCategory === newsCategory.id,
+        'bg-platinum text-dark-cerulean': activeCategory !== newsCategory.id
+      }"
+      (click)="filterNewsByCategory(+newsCategory.id)"
+      class="nav-link">
+      {{ newsCategory.name }}
+    </button>
+  </li>
+}
+@else {
+  <li role="presentation" class="nav-item mx-2 mx-sm-3 mb-3 mb-sm-4">
+    <button 
+      data-bs-toggle="pill" 
+      data-bs-target="#pills-all" 
+      type="button" 
+      role="tab" 
+      aria-controls="pills-all"
+      [attr.aria-selected]="activeCategory === -1" 
+      [ngClass]="{
+        'bg-cyan text-white': activeCategory === -1,
+        'bg-platinum text-dark-cerulean': activeCategory !== -1
+      }"
+      (click)="filterNewsByCategory(-1)"
+      class="nav-link">
+      All news
+    </button>
+  </li>
+}

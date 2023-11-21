@@ -3,6 +3,10 @@ export interface MainNavigator {
   routerLink: string;
 }
 
+export interface SlideResponse {
+  slides: Slide[];
+}
+
 export interface Slide {
   brief: string;
   category: string;
@@ -13,6 +17,10 @@ export interface Slide {
   order: number;
   title: string;
   videoUrl: string;
+}
+
+export interface NewsResponse {
+  News: News[];
 }
 
 export interface News {
@@ -27,6 +35,10 @@ export interface News {
   urlToImage: string;
 }
 
+export interface NewsCategoryResponse {
+  newsCategory: NewsCategory[];
+}
+
 export interface NewsCategory {
   id: number;
   name: string;
@@ -39,3 +51,4 @@ export interface Service {
   link: string;
   title: string;
 }
+

@@ -3,41 +3,17 @@
   <h4 class="text-navy fw-bold fs-2 mb-4">Top News</h4>
   <ul id="pills-tab" role="tablist" class="nav nav-pills justify-content-center mb-4" 
     *ngIf="newsCategories && newsCategories.length > 0">
-    <li role="presentation" class="nav-item mx-2 mx-sm-3 mb-3 mb-sm-4">
-      <button 
-        data-bs-toggle="pill" 
-        data-bs-target="#pills-all" 
-        type="button" 
-        role="tab" 
-        aria-controls="pills-all"
-        [attr.aria-selected]="activeCategory === -1" 
-        [ngClass]="{
-          'bg-cyan text-white': activeCategory === -1,
-          'bg-platinum text-dark-cerulean': activeCategory !== -1,
-        }"
-        (click)="filterNewsByCategory(-1)"
-        class="nav-link">
-        All news
-      </button>
-    </li>
+    <app-pill-tab-item
+      [newsCategory]="null"
+      [activeCategory]="activeCategory"
+      (filterNews)="filterNewsByCategory($event)"
+    />
     <ng-container *ngFor="let category of newsCategories">
-      <li role="presentation" class="nav-item mx-2 mx-sm-3 mb-3 mb-sm-4">
-        <button 
-          data-bs-toggle="pill" 
-          [attr.data-bs-target]="'#pills-' + category.id" 
-          type="button" 
-          role="tab" 
-          [attr.aria-controls]="'pills-' + category.id"
-          [attr.aria-selected]="activeCategory === category.id" 
-          [ngClass]="{
-            'bg-cyan text-white': activeCategory === category.id,
-            'bg-platinum text-dark-cerulean': activeCategory !== category.id,
-          }"
-          (click)="filterNewsByCategory(+category.id)"
-          class="nav-link"> 
-          {{ category.name }} 
-        </button>
-      </li>
+      <app-pill-tab-item
+        [newsCategory]="category"
+        [activeCategory]="activeCategory"
+        (filterNews)="filterNewsByCategory($event)"
+      />
     </ng-container>
   </ul>
   <div id="pills-tabContent" class="tab-content">

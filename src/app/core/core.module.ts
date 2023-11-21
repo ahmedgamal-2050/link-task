@@ -5,6 +5,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { NewsCardItemComponent } from './components/news-card-item/news-card-item.component';
 import { ServiceCardItemComponent } from './components/service-card-item/service-card-item.component';
+import { PillTabItemComponent } from './components/pill-tab-item/pill-tab-item.component';
 
 
 
@@ -14,6 +15,7 @@ import { ServiceCardItemComponent } from './components/service-card-item/service
     FooterComponent,
     NewsCardItemComponent,
     ServiceCardItemComponent,
+    PillTabItemComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,7 @@ import { ServiceCardItemComponent } from './components/service-card-item/service
     FooterComponent,
     NewsCardItemComponent,
     ServiceCardItemComponent,
+    PillTabItemComponent,
   ]
 })
 export class CoreModule { }

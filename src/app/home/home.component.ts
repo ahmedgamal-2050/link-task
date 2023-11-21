@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { News, NewsCategory, Slide } from '../core/constants/home.interface';
+import { News, NewsCategory, NewsCategoryResponse, NewsResponse, Slide, SlideResponse } from '../core/constants/home.interface';
 import { NewsService } from '../core/services/news.service';
 import { BannerService } from '../core/services/banner.service';
 
@@ -24,19 +24,19 @@ export class HomeComponent {
   }
 
   getBanners() {
-    this.bannerService.getBanners().subscribe((response: any) => {
+    this.bannerService.getBanners().subscribe((response: SlideResponse) => {
       this.slides = response.slides;
     })
   }
 
   getNewsCategories() {
-    this.newsService.getNewsCategories().subscribe((response: any) => {
+    this.newsService.getNewsCategories().subscribe((response: NewsCategoryResponse) => {
       this.newsCategories = response.newsCategory;
     })
   }
 
   getNews() {
-    this.newsService.getNews().subscribe((response: any) => {
+    this.newsService.getNews().subscribe((response: NewsResponse) => {
       this.news = response.News;
       this.news.map((item: News) => {
         item.categoryName = this.getCategoryNameById(+item.categoryID);
@@ -47,14 +47,8 @@ export class HomeComponent {
   }
 
   getCategoryNameById(categoryId: number): string {
-    if (this.newsCategories && this.newsCategories.length > 0) {
-      const category: NewsCategory | undefined = this.newsCategories.find((item: NewsCategory) => item.id === categoryId);
-      if (category) {
-        return category.name;
-      }
-      else {
-        return "";
-      }
+    if (this.newsCategories?.length > 0) {
+      return (<NewsCategory>this.newsCategories.find((item: NewsCategory) => item.id === categoryId)).name;
     }
     else {
       return "";

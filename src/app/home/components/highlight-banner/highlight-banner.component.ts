@@ -1,5 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BannerService } from '../../../core/services/banner.service';
+import { Component, Input } from '@angular/core';
 import { Slide } from '../../../core/constants/home.interface';
 
 @Component({
@@ -8,12 +7,6 @@ import { Slide } from '../../../core/constants/home.interface';
   templateUrl: './highlight-banner.component.html',
   styleUrl: './highlight-banner.component.scss'
 })
-export class HighlightBannerComponent implements OnChanges {
+export class HighlightBannerComponent {
   @Input() slides: Slide[] = [];
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes['slides']) {
-      this.slides = changes['slides'].currentValue;
-    }
-  }
 }
