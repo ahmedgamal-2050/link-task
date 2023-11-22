@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { NewsCardItemComponent } from './components/news-card-item/news-card-item.component';
 import { ServiceCardItemComponent } from './components/service-card-item/service-card-item.component';
 import { PillTabItemComponent } from './components/pill-tab-item/pill-tab-item.component';
+import { ThingsWeDoService } from './services/things-we-do.service';
 
 
 
@@ -27,6 +28,9 @@ import { PillTabItemComponent } from './components/pill-tab-item/pill-tab-item.c
     NewsCardItemComponent,
     ServiceCardItemComponent,
     PillTabItemComponent,
+  ],
+  providers: [
+    ThingsWeDoService,
   ]
 })
 export class CoreModule { }

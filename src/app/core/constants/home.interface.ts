@@ -44,6 +44,10 @@ export interface NewsCategory {
   name: string;
 }
 
+export interface ServicesResponse {
+  services: Service[];
+}
+
 export interface Service {
   position: number;
   urlToImage: string;

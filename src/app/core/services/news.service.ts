@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, of } from 'rxjs';
-import { News, NewsCategory } from '../constants/home.interface';
+import { News } from '../constants/home.interface';
 
 @Injectable({
   providedIn: 'root'

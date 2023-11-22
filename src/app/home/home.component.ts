@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { News, NewsCategory, NewsCategoryResponse, NewsResponse, Slide, SlideResponse } from '../core/constants/home.interface';
+import { News, NewsCategory, NewsCategoryResponse, NewsResponse, Service, ServicesResponse, Slide, SlideResponse } from '../core/constants/home.interface';
 import { NewsService } from '../core/services/news.service';
 import { BannerService } from '../core/services/banner.service';
+import { ThingsWeDoService } from '../core/services/things-we-do.service';
 
 @Component({
   selector: 'app-home',
@@ -16,25 +17,49 @@ export class HomeComponent {
   newsCategories: NewsCategory[] = [];
   filteredNews: News[] = [];
   activeCategory: number = -1;
+  services: Service[] = [];
 
-  constructor(private bannerService: BannerService, private newsService: NewsService) {
+  constructor(
+    private bannerService: BannerService,
+    private newsService: NewsService,
+    private thingsWeDoService: ThingsWeDoService,
+  ) {
     this.getBanners();
+    this.getServices();
     this.getNewsCategories();
     this.getNews();
   }
 
+  /**
+  * Get banner/slides data, This variable is used to show hero slides on homepage.
+  */
   getBanners() {
     this.bannerService.getBanners().subscribe((response: SlideResponse) => {
       this.slides = response.slides;
     })
   }
 
+  /**
+  * Get banner/slides data, This variable is used to show hero slides on homepage.
+  */
+  getServices() {
+    this.thingsWeDoService.getServices().subscribe((response: ServicesResponse) => {
+      this.services = response.services;
+    })
+  }
+
+  /**
+  * Get news categories, This variable is used to show news categories on homepage.
+  */
   getNewsCategories() {
     this.newsService.getNewsCategories().subscribe((response: NewsCategoryResponse) => {
       this.newsCategories = response.newsCategory;
     })
   }
 
+  /**
+  * Get news, This variable is used to show news on homepage.
+  */
   getNews() {
     this.newsService.getNews().subscribe((response: NewsResponse) => {
       this.news = response.News;
@@ -46,6 +71,7 @@ export class HomeComponent {
     })
   }
 
+  // Returns the name of the category
   getCategoryNameById(categoryId: number): string {
     if (this.newsCategories?.length > 0) {
       return (<NewsCategory>this.newsCategories.find((item: NewsCategory) => item.id === categoryId)).name;
@@ -55,6 +81,7 @@ export class HomeComponent {
     }
   }
 
+  // Returns filtered news of the specific category
   filterNewsByCategory(categoryId: number) {
     this.activeCategory = categoryId;
     this.filteredNews = categoryId !== -1 ? this.news.filter((item: News) => +item.categoryID === categoryId) : [];
