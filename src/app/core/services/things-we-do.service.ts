@@ -6,7 +6,7 @@ import { catchError, map, of } from 'rxjs';
   providedIn: 'root'
 })
 export class ThingsWeDoService {
-  baseUrl: string = "/assets/json/things-we-do.json" 
+  baseUrl: string = "assets/json/things-we-do.json" 
 
 	constructor(private httpClient: HttpClient) {
 	}
