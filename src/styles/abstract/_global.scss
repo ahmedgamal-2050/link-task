@@ -7,6 +7,10 @@ html, body {
   font-family: 'Poppins', sans-serif;
 }
 
+a {
+  cursor: pointer;
+}
+
 .navbar-toggler:focus {
   box-shadow: none;
 }

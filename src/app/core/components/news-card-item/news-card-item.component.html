@@ -11,9 +11,11 @@
       [src]="newsInfo.urlToImage"
     />
     <div class="card-body">
-      <p class="card-text static-height80 fs-7 fw600 text-dark-electric-blue text-start"> 
-        {{ newsInfo.title }}
-      </p>
+      <a class="text-decoration-none" target="_blank" [routerLink]="false ? 'news/'+ newsInfo.id : null">
+        <h6 class="card-text static-height80 fs-7 fw600 text-dark-electric-blue text-start"> 
+          {{ newsInfo.title }}
+        </h6>
+      </a>
       <div class="d-flex align-items-center mb-3">
         <img 
           src="assets/icons/ic_date_range_24px.svg" 
@@ -33,20 +35,24 @@
           {{ newsInfo.categoryName }}  
         </span>
         <div>
-          <img 
-            src="assets/icons/ic_favorite_border_24px.svg"
-            loading="lazy" 
-            alt="love icon" 
-            width="" 
-            height=""
-            class="d-inline-block object-fit-contain me-2">
-          <img 
-            src="assets/icons/ic_share_24px.svg" 
-            loading="lazy" 
-            alt="share icon" 
-            width="" 
-            height=""
-            class="d-inline-block object-fit-contain">
+          <button type="button" class="m-0 p-0 bg-transparent border-0">
+            <img 
+              src="assets/icons/ic_favorite_border_24px.svg"
+              loading="lazy" 
+              alt="love icon" 
+              width="" 
+              height=""
+              class="d-inline-block object-fit-contain me-2">
+          </button>
+          <a>
+            <img 
+              src="assets/icons/ic_share_24px.svg" 
+              loading="lazy" 
+              alt="share icon" 
+              width="" 
+              height=""
+              class="d-inline-block object-fit-contain">
+          </a>
         </div>
       </div>
     </div>
