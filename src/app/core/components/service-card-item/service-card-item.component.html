@@ -4,8 +4,14 @@
   class="position-relative position-lg-absolute hover-read-more"
   [ngClass]="'position-lg-' + service.position"
 >
+  <h5 class="position-absolute text-white fs-5 fw-bolder service-title-position mb-0">
+    {{service.title}}
+  </h5>
+  <h4 class="position-absolute fw-bolder service-title-decoration-position mb-0">
+    {{service.title}}
+  </h4>
   <div class="position-absolute w-100 h-100 p-3 d-flex flex-column justify-content-end opacity-0">
-    <a class="">
+    <span>
       <img src="assets/icons/arrow-right.svg" 
         alt="arrow right" 
         width="" 
@@ -14,7 +20,7 @@
         class="object-fit-contain d-inline-block"
       />
       <a class="text-white fs-7 ms-2" [href]="" target="_blank">Read more</a>
-    </a>
+    </span>
   </div>
   <img 
     [src]="service.urlToImage" 

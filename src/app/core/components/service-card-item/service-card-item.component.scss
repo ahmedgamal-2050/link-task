@@ -6,6 +6,22 @@
   transform: 0.3s all;
 }
 
+.service-title-position {
+  left: 1.5rem;
+  bottom: 4rem;
+  z-index: 3;
+}
+
+.service-title-decoration-position {
+  font-size: 1.625rem;
+  color: transparent;
+  -webkit-text-stroke: 0.25px white;  // Adjust the size and color of the text outline
+  left: 0.75rem;
+  bottom: 4.5rem;
+  z-index: 2;
+}
+
+
 @media screen and (min-width: 992px) {
   .position-lg-1 {
     top: -8.5rem;
