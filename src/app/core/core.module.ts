@@ -7,8 +7,8 @@ import { NewsCardItemComponent } from './components/news-card-item/news-card-ite
 import { ServiceCardItemComponent } from './components/service-card-item/service-card-item.component';
 import { PillTabItemComponent } from './components/pill-tab-item/pill-tab-item.component';
 import { ThingsWeDoService } from './services/things-we-do.service';
-
-
+import { TranslocoRootModule } from './Transloco-root.module';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
   declarations: [
@@ -21,6 +21,7 @@ import { ThingsWeDoService } from './services/things-we-do.service';
   imports: [
     CommonModule,
     RouterModule,
+    TranslocoRootModule,
   ],
   exports: [
     HeaderComponent,
@@ -28,6 +29,7 @@ import { ThingsWeDoService } from './services/things-we-do.service';
     NewsCardItemComponent,
     ServiceCardItemComponent,
     PillTabItemComponent,
+    TranslocoModule,
   ],
   providers: [
     ThingsWeDoService,

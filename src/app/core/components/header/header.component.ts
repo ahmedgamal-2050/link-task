@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MainNavigator } from '../../constants/home.interface';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-header',
@@ -27,7 +28,9 @@ export class HeaderComponent {
       pageName: 'Contact us',
       routerLink: '/contact-us'
     }
-  ]
+  ];
+
+  constructor(private translocoService: TranslocoService) {}
 
   switchLanguage() {
     if (this.currentLanguageCode === 'EN') {
@@ -36,5 +39,6 @@ export class HeaderComponent {
     else {
       this.currentLanguageCode = 'EN';
     }
+    this.translocoService.setActiveLang(this.currentLanguageCode.toLocaleLowerCase());
   }
 }
