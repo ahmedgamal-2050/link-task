@@ -27,11 +27,15 @@
         </div>
         <div class="offcanvas-body pt-0">
           <div class="navbar-collapse">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="mainNavigatorsList.length > 0">
-              <li class="nav-item" *ngFor="let link of mainNavigatorsList">
-                <a class="nav-link" routerLinkActive="active" [routerLink]="link.routerLink">{{ link.pageName }}</a>
-              </li>
-            </ul>
+            @if(mainNavigatorsList && mainNavigatorsList.length){
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                @for(link of mainNavigatorsList; track link.pageName){
+                  <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="link.routerLink">{{ link.pageName }}</a>
+                  </li>
+                }
+              </ul>
+            }
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link" href="#">{{ 'login' | transloco }}</a>

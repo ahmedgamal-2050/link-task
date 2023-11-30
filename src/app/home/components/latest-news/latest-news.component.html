@@ -1,38 +1,29 @@
-<div class="container text-center py-5" *ngIf="news && news.length > 0">
-  <p class="fs-7 text-dark-electric-blue fw600">Media</p>
-  <h4 class="text-navy fw-bold fs-2 mb-4">Top News</h4>
-  <ul id="pills-tab" role="tablist" class="nav nav-pills justify-content-center mb-4" 
-    *ngIf="newsCategories && newsCategories.length > 0">
-    <app-pill-tab-item
-      [newsCategory]="null"
-      [activeCategory]="activeCategory"
-      (filterNews)="filterNewsByCategory($event)"
-    />
-    <ng-container *ngFor="let category of newsCategories">
-      <app-pill-tab-item
-        [newsCategory]="category"
-        [activeCategory]="activeCategory"
-        (filterNews)="filterNewsByCategory($event)"
-      />
-    </ng-container>
-  </ul>
-  <div id="pills-tabContent" class="tab-content">
-    <div id="pills-all" role="tabpanel" class="tab-pane fade"
-      [ngClass]="{'show active': activeCategory === -1}">
-      <div class="row">
-        <ng-container *ngFor="let item of lastestNews">
-          <app-news-card-item 
-            class="col-lg-4 col-md-6 mb-4"
-            [newsInfo]="item"
+@if(news && news.length) {
+  <div class="container text-center py-5">
+    <p class="fs-7 text-dark-electric-blue fw600">Media</p>
+    <h4 class="text-navy fw-bold fs-2 mb-4">Top News</h4>
+    @if (newsCategories && newsCategories.length > 0) {
+      <ul id="pills-tab" role="tablist" class="nav nav-pills justify-content-center mb-4">
+        <app-pill-tab-item
+          [newsCategory]="null"
+          [activeCategory]="activeCategory"
+          (filterNews)="filterNewsByCategory($event)"
+        />
+        <ng-container *ngFor="let category of newsCategories">
+          <app-pill-tab-item
+            [newsCategory]="category"
+            [activeCategory]="activeCategory"
+            (filterNews)="filterNewsByCategory($event)"
           />
         </ng-container>
-      </div>
-    </div>
-    <ng-container *ngFor="let category of newsCategories">
-      <div [id]="'pills-' + category.id" role="tabpanel" class="tab-pane fade"
-        [ngClass]="{'show active': activeCategory === category.id}">
+      </ul>    
+    }
+
+    <div id="pills-tabContent" class="tab-content">
+      <div id="pills-all" role="tabpanel" class="tab-pane fade"
+        [ngClass]="{'show active': activeCategory === -1}">
         <div class="row">
-          <ng-container *ngFor="let item of filteredNews">
+          <ng-container *ngFor="let item of lastestNews">
             <app-news-card-item 
               class="col-lg-4 col-md-6 mb-4"
               [newsInfo]="item"
@@ -40,11 +31,24 @@
           </ng-container>
         </div>
       </div>
-    </ng-container>
-  </div>
-  <div>
-    <button class="btn bg-orange text-white py-3 px-5"> 
-      View All News
-    </button>
-  </div>
-</div>
+      <ng-container *ngFor="let category of newsCategories">
+        <div [id]="'pills-' + category.id" role="tabpanel" class="tab-pane fade"
+          [ngClass]="{'show active': activeCategory === category.id}">
+          <div class="row">
+            <ng-container *ngFor="let item of filteredNews">
+              <app-news-card-item 
+                class="col-lg-4 col-md-6 mb-4"
+                [newsInfo]="item"
+              />
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div>
+      <button class="btn bg-orange text-white py-3 px-5"> 
+        View All News
+      </button>
+    </div>
+  </div>  
+}

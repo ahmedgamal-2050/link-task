@@ -1,76 +1,81 @@
 <section class="container-fluid overflow-hidden">
-  <div class="container" *ngIf="slides && slides.length > 0">
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item" [ngClass]="{'active': slide.order === 1 }" *ngFor="let slide of slides">
-          <div class="row">
-            <div class="col-lg-7 my-5">
-              <p class="text-uppercase fs-6 fw-bold pt-sm-6" [style.color]="'#' + slide.colorCode">
-                {{ slide.category }}
-              </p> 
-              <h1 class="fs-1 fw-bold text-navy mb-4">
-                {{ slide.title }}
-              </h1>
-              <p class="text-dark-electric-blue fs-8 mb-4">
-                {{ slide.brief }}
-              </p>
-              <div class="d-flex align-items-center mb-4">
-                <button
-                  class="btn bg-orange text-white p-4 me-4">
-                  Find out more
-                </button>
-                <div class="d-flex align-items-center">
-                  <button class="btn bg-red text-white btn-play rounded-circle">
-                    <img
-                      src="assets/icons/play-icon.svg" 
-                      alt="play icon" 
-                      width="" 
-                      height="" 
+  @if(slides && slides.length > 0){
+    <div class="container">
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          @for(slide of slides; track slide.id){
+            <div class="carousel-item" [ngClass]="{'active': slide.order === 1 }">
+              <div class="row">
+                <div class="col-lg-7 my-5">
+                  <p class="text-uppercase fs-6 fw-bold pt-sm-6" [style.color]="'#' + slide.colorCode">
+                    {{ slide.category }}
+                  </p> 
+                  <h1 class="fs-1 fw-bold text-navy mb-4">
+                    {{ slide.title }}
+                  </h1>
+                  <p class="text-dark-electric-blue fs-8 mb-4">
+                    {{ slide.brief }}
+                  </p>
+                  <div class="d-flex align-items-center mb-4">
+                    <button
+                      class="btn bg-orange text-white p-4 me-4">
+                      Find out more
+                    </button>
+                    <div class="d-flex align-items-center">
+                      <button class="btn bg-red text-white btn-play rounded-circle">
+                        <img
+                          src="assets/icons/play-icon.svg" 
+                          alt="play icon" 
+                          width="" 
+                          height="" 
+                          loading="lazy"
+                        />
+                      </button>
+                      <div class="fs-7 text-dark-electric-blue ms-3"> 
+                        Play Demo 
+                      </div>
+                    </div>
+                  </div>
+                  <div class="position-relative col-lg-6">
+                    <div class="carousel-indicators position-relative align-items-center justify-content-between hero-indicators m-0">
+                      <ng-container *ngFor="let slideIndex of slides; let i = index">
+                        <button 
+                          type="button" 
+                          class="rounded-circle border-0"
+                          data-bs-target="#carouselExampleIndicators" 
+                          [attr.data-bs-slide-to]="i"
+                          [ngClass]="{
+                            'active m-0': slideIndex.order === 1
+                          }" 
+                          [style.background]="'#' + slideIndex.colorCode"
+                          [attr.aria-current]="slideIndex.order === 1" 
+                        >
+                        </button>
+                      </ng-container>
+                      <hr class="position-absolute hero-indicators-decore w-100 border-0"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5 position-relative d-md-block d-none">
+                  <div class="position-absolute hero-img">
+                    <img 
+                      src="assets/images/home/traveller-lg.png"
+                      height="666" 
+                      width="667" 
+                      alt="traveller (hero)" 
                       loading="lazy"
+                      class="object-fit-contain d-inline-block"
                     />
-                  </button>
-                  <div class="fs-7 text-dark-electric-blue ms-3"> 
-                    Play Demo 
                   </div>
                 </div>
               </div>
-              <div class="position-relative col-lg-6">
-                <div class="carousel-indicators position-relative align-items-center justify-content-between hero-indicators m-0">
-                  <ng-container *ngFor="let slideIndex of slides; let i = index">
-                    <button 
-                      type="button" 
-                      class="rounded-circle border-0"
-                      data-bs-target="#carouselExampleIndicators" 
-                      [attr.data-bs-slide-to]="i"
-                      [ngClass]="{
-                        'active m-0': slideIndex.order === 1
-                      }" 
-                      [style.background]="'#' + slideIndex.colorCode"
-                      [attr.aria-current]="slideIndex.order === 1" 
-                    >
-                    </button>
-                  </ng-container>
-                  <hr class="position-absolute hero-indicators-decore w-100 border-0"/>
-                </div>
-              </div>
             </div>
-            <div class="col-lg-5 position-relative d-md-block d-none">
-              <div class="position-absolute hero-img">
-                <img 
-                  src="assets/images/home/traveller-lg.png"
-                  height="666" 
-                  width="667" 
-                  alt="traveller (hero)" 
-                  loading="lazy"
-                  class="object-fit-contain d-inline-block"
-                />
-              </div>
-            </div>
-          </div>
+          }
         </div>
       </div>
     </div>
-  </div>
+  }
+
   <!-- (decore) hide on mobile only -->
   <div class="position-absolute decore spin d-md-block d-none">
     <img 
